@@ -1,10 +1,10 @@
 clc,clear;
-P=imread('lena.jpg');P=rgb2gray(P);
-iptsetpref('imshowborder','tight');
+P=imread('lena.jpg');P=rgb2gray(P);//读入图像 转化为灰度图像
+iptsetpref('imshowborder','tight');//设置图像显示无边框
 figure(1);imshow(P);
-[M,N]=size(P);P=double(P);
-n=M+N;
-h=0.002;t=800;
+[M,N]=size(P);P=double(P);//获得图像行列数M N
+n=M+N;//设定计算的混沌序列长度
+h=0.002;t=800;//以下
 a=10;b=8/3;c=28;r=-1;
 x0=1.1;y0=2.2;z0=3.3;w0=4.4;
 s=zeros(1,n);
@@ -28,20 +28,20 @@ for i=1:n+t
     x0=x1;y0=y1;z0=z1;w0=w1;
     if i>t
         s(i-t)=x1;
-        if mod((i-t),3000)==0
+        if mod((i-t),3000)==0//每3000次迭代后加扰动
             x0=x0+h*sin(y0);
         end
     end
-end
-X=mod(floor((s(1:M)+100)*10^10),M)+1;
-Y=mod(floor((s(M+1:M+N)+100)*10^10),N)+1;
+end//以上 生成混沌序列
+X=mod(floor((s(1:M)+100)*10^10),M)+1;//生成行置乱向量
+Y=mod(floor((s(M+1:M+N)+100)*10^10),N)+1;//生成列置乱向量
 A=P;
 for i=1:M
     t=A(i,:);A(i,:)=A(X(i),:);A(X(i),:)=t;
 end
-figure(2);imshow(uint8(A));
+figure(2);imshow(uint8(A));//行置乱后的图像
 B=A;
 for j=1:N
     t=B(:,j);B(:,j)=B(:,Y(j));B(:,Y(j))=t;
 end
-figure(3);imshow(uint8(B));
+figure(3);imshow(uint8(B));//列置乱后的图像
