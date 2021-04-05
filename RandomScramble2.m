@@ -1,5 +1,5 @@
 clc,clear;
-P=imread('C:\Users\Áõ¶¨ÇÛ\Desktop\Set14\lenna.bmp');P=rgb2gray(P);
+P=imread('lenna.bmp');P=rgb2gray(P);
 iptsetpref('imshowborder','tight');
 figure(1);subplot(1,2,1);imshow(P);title('Ã÷ÎÄÍ¼Ïñ');
 [M,N]=size(P);P=double(P);
